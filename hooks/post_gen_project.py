@@ -8,10 +8,6 @@
 
 import os
 import subprocess
-from cookiecutter.utils import get_user_config
-
-# Importer cookiecutter
-from cookiecutter.main import cookiecutter
 
 def run_command(command):
     """Exécute une commande dans le shell et gère les erreurs."""
