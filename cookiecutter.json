@@ -7,7 +7,7 @@
     "description": "Skeleton project created by Cookiecutter PyPackage",
     "version": "0.1.0",
     "license": "MIT",
-    "github_user|organization_name": "user_or_organization",
+    "github_user_organization_name": "user_or_organization",
     "github_repo_name": "{{ cookiecutter.project_slug }}",
-    "github_repo_link": "https://github.com/{{ cookiecutter.github_user|organization_name }}/{{ cookiecutter.github_repo_name }}"
+    "github_repo_link": "https://github.com/{{ cookiecutter.github_user_organization_name }}/{{ cookiecutter.github_repo_name }}"
 }
