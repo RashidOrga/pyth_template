@@ -1,0 +1,33 @@
+name: Setup New Project
+
+on:
+  create:
+    branches:
+      - master
+    paths:
+      - '**'
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.11'  # Spécifie la version de Python que tu souhaites utiliser
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install cookiecutter
+
+    - name: Run post generation script
+      env: # Configure des variables d'environnement ici 
+        PROJECT_NAME: ${{ github.event.repository.name }}
+        USERNAME: ${{ github.event.repository.owner.login }}
+      run: |
+        python hooks/post_gen_project.py
