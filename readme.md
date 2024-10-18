@@ -1,0 +1,1 @@
+### This is the cookicutter configuration template contain a folder to be duplacated with the good configuration
