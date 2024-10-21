@@ -8,10 +8,6 @@
 
 import os
 import subprocess
-from cookiecutter.utils import get_user_config
-
-# Importer cookiecutter
-from cookiecutter.main import cookiecutter
 
 def run_command(command):
     """Exécute une commande dans le shell et gère les erreurs."""
@@ -33,16 +29,16 @@ def main():
     print(f"Auteur: {author_name}")
     print(f"Description: {description}")
 
-    # Initialiser le dépôt Git localement
-    run_command("git init")
-    run_command("git add .")
-    run_command('git commit -m "Initial commit"')
+    # # Initialiser le dépôt Git localement
+    # run_command("git init")
+    # run_command("git add .")
+    # run_command('git commit -m "Initial commit"')
 
-    # Ajouter le dépôt distant et pousser (n'oublie pas de définir remote_url)
-    remote_url = "https://github.com/username/your_repository.git"
-    run_command(f"git remote add origin {remote_url}")
-    run_command("git branch -M main")  # Renommer la branche principale en 'main'
-    run_command("git push -u origin main")
+    # # Ajouter le dépôt distant et pousser (n'oublie pas de définir remote_url)
+    # remote_url = "https://github.com/username/your_repository.git"
+    # run_command(f"git remote add origin {remote_url}")
+    # run_command("git branch -M main")  # Renommer la branche principale en 'main'
+    # run_command("git push -u origin main")
 
 if __name__ == "__main__":
     main()
