@@ -1,11 +1,20 @@
 name: Setup New Project
 
 on:
-  create:
-    branches:
-      - master
-    paths:
-      - '**'
+  workflow_dispatch:
+    inputs:
+      project_name:
+        description: 'Enter the project name'
+        required: true
+      repo_owner_full_name:
+        description: 'Enter the owner full name'
+        required: true
+      repo_owner_email:
+        description: 'Enter the owner email'
+        required: true
+      description:
+        description: 'Enter the project description'
+        required: true
 
 jobs:
   setup:
@@ -25,9 +34,13 @@ jobs:
         python -m pip install --upgrade pip
         pip install cookiecutter
 
-    - name: Run Cookiecutter
+    - name: Run Cookiecutter with dynamic inputs
       run: |
-        cookiecutter .
+        cookiecutter --no-input . \
+          project_name="${{ github.event.inputs.project_name }}" \
+          repo_owner_full_name="${{ github.event.inputs.repo_owner_full_name }}" \
+          repo_owner_email="${{ github.event.inputs.repo_owner_email }}" \
+          description="${{ github.event.inputs.description }}"
 
     - name: Run post generation script
       env: # Configure des variables d'environnement ici 
