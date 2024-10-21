@@ -25,6 +25,10 @@ jobs:
         python -m pip install --upgrade pip
         pip install cookiecutter
 
+    - name: Run Cookiecutter
+      run: |
+        cookiecutter .
+
     - name: Run post generation script
       env: # Configure des variables d'environnement ici 
         PROJECT_NAME: ${{ github.event.repository.name }}
