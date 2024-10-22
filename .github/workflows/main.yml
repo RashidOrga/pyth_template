@@ -43,7 +43,10 @@ jobs:
         pip install cookiecutter
 
     - name: Run Cookiecutter to generate project structure
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
+        git config --global url."https://${GITHUB_TOKEN}@github.com/".insteadOf "https://github.com/"
         cookiecutter --no-input RashidOrga/pyth_template.git \
           project_name="${{ github.event.inputs.project_name }}" \
           repo_owner_full_name="${{ github.event.inputs.repo_owner_full_name }}" \
