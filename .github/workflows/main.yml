@@ -24,20 +24,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
+    - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Set up Python
+    - name: Remove existing files  # Cette étape supprime tous les fichiers existants
+      run: |
+        git rm -r *
+        git clean -fd
+
+    - name: Install Python and Cookiecutter
       uses: actions/setup-python@v2
       with:
-        python-version: '3.11'  # Spécifie la version de Python que tu souhaites utiliser
+        python-version: '3.11'
 
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install cookiecutter
 
-    - name: Run Cookiecutter with dynamic inputs
+    - name: Run Cookiecutter to generate project structure
       run: |
         cookiecutter --no-input . \
           project_name="${{ github.event.inputs.project_name }}" \
@@ -45,12 +50,12 @@ jobs:
           repo_owner_email="${{ github.event.inputs.repo_owner_email }}" \
           description="${{ github.event.inputs.description }}"
 
-    - name: Commit and Push changes
+    - name: Commit and Push changes  # Un seul commit avec la nouvelle structure générée par Cookiecutter
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git add .
-        git commit -m "Apply Cookiecutter template"
-        git push origin master
+        git commit -m "Initial commit with Cookiecutter template"
+        git push --force origin master  # Utilisation du --force pour remplacer le premier commit
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
