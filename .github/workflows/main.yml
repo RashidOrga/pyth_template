@@ -51,6 +51,6 @@ jobs:
         git config --local user.name "GitHub Action"
         git add .
         git commit -m "Apply Cookiecutter template"
-        git push origin main  # Modifié à "main" au lieu de "master"
+        git push origin master
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
