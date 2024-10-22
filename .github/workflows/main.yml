@@ -46,7 +46,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        cookiecutter --no-input https://github.com/RashidOrga/pyth_template.git \
+        cookiecutter --no-input https://${{ secrets.GITHUB_TOKEN }}@github.com/RashidOrga/pyth_template.git \
           project_name="${{ github.event.inputs.project_name }}" \
           repo_owner_full_name="${{ github.event.inputs.repo_owner_full_name }}" \
           repo_owner_email="${{ github.event.inputs.repo_owner_email }}" \
