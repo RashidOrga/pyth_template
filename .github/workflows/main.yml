@@ -42,9 +42,19 @@ jobs:
           repo_owner_email="${{ github.event.inputs.repo_owner_email }}" \
           description="${{ github.event.inputs.description }}"
 
-    - name: Run post generation script
-      env: # Configure des variables d'environnement ici 
-        PROJECT_NAME: ${{ github.event.repository.name }}
-        USERNAME: ${{ github.event.repository.owner.login }}
+    - name: Commit and Push changes
       run: |
-        python hooks/post_gen_project.py
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add .
+        git commit -m "Apply Cookiecutter template"
+        git push origin master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    # - name: Run post generation script
+    #   env: # Configure des variables d'environnement ici 
+    #     PROJECT_NAME: ${{ github.event.repository.name }}
+    #     USERNAME: ${{ github.event.repository.owner.login }}
+    #   run: |
+    #     python hooks/post_gen_project.py
