@@ -44,7 +44,7 @@ jobs:
 
     - name: Run Cookiecutter to generate project structure
       run: |
-        cookiecutter --no-input git@github-personal:RashidOrga/pyth_template.git \
+        cookiecutter --no-input RashidOrga/pyth_template.git \
           project_name="${{ github.event.inputs.project_name }}" \
           repo_owner_full_name="${{ github.event.inputs.repo_owner_full_name }}" \
           repo_owner_email="${{ github.event.inputs.repo_owner_email }}" \
