@@ -27,11 +27,11 @@ jobs:
 
     steps:
     - name: Checkout template repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
       with:
         repository: RashidOrga/pyth_template
         ref: master
-        token: ${{ secrets.GITHUB_TOKEN }}
+        token: ${{ secrets.Org_PAT  }} # `GH_PAT` is a secret that contains your PAT
 
     - name: Install Python
       uses: actions/setup-python@v2
