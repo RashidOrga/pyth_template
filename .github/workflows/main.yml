@@ -16,6 +16,11 @@ on:
         description: 'Enter the project description'
         required: true
 
+permissions:
+  contents: write  # Donner l'accès en écriture pour cloner/pusher sur le dépôt privé
+  issues: write    # Si vous devez gérer les issues dans un dépôt privé
+  pull-requests: write  # Si vous devez gérer des pull requests
+
 jobs:
   generate_project:
     runs-on: ubuntu-latest
