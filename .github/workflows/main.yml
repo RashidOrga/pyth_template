@@ -1,4 +1,4 @@
-name: Setup New Project
+name: Run Cookiecutter to generate project structure
 
 on:
   workflow_dispatch:
@@ -16,48 +16,39 @@ on:
         description: 'Enter the project description'
         required: true
 
-permissions:
-  contents: write
-
 jobs:
-  setup:
+  generate_project:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
+    - name: Checkout template repository
       uses: actions/checkout@v2
+      with:
+        repository: RashidOrga/pyth_template
+        token: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Remove existing files  # Cette étape supprime tous les fichiers existants
-      run: |
-        git rm -r *
-        git clean -fd
-
-    - name: Install Python and Cookiecutter
+    - name: Install Python
       uses: actions/setup-python@v2
       with:
-        python-version: '3.11'
+        python-version: '3.x'
 
-    - name: Install dependencies
+    - name: Install Cookiecutter
       run: |
         python -m pip install --upgrade pip
         pip install cookiecutter
 
     - name: Run Cookiecutter to generate project structure
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        cookiecutter --no-input https://${{ secrets.GITHUB_TOKEN }}@github.com/RashidOrga/pyth_template.git \
+        cookiecutter --no-input ./ \
           project_name="${{ github.event.inputs.project_name }}" \
           repo_owner_full_name="${{ github.event.inputs.repo_owner_full_name }}" \
           repo_owner_email="${{ github.event.inputs.repo_owner_email }}" \
           description="${{ github.event.inputs.description }}"
-
-    - name: Commit and Push changes  # Un seul commit avec la nouvelle structure générée par Cookiecutter
+    
+    - name: Commit and push changes
       run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
+        git config --local user.name "github-actions[bot]"
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
         git add .
-        git commit -m "Initial commit with Cookiecutter template"
-        git push --force origin master  # Utilisation du --force pour remplacer le premier commit
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        git commit -m "Generated project from template"
+        git push
